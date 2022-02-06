@@ -131,3 +131,6 @@ $RECYCLE.BIN/
 .DS_Store
 
 _NCrunch*
+/.idea/
+/lab1p1/.idea/.idea.lab1p1/.idea/
+/lab1p2/.idea/.idea.lab1p2/.idea/
