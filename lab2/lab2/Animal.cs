@@ -1,6 +1,6 @@
 ﻿namespace Lab2;
 
-public class Animal<T>: AnimalKind
+public class Animal<T>: AnimalKind<T>
 {
     private string _name;
     private T? _age;
@@ -10,7 +10,7 @@ public class Animal<T>: AnimalKind
         _name = "";
     }
 
-    public Animal(string kind, string name, T? age) : base(kind)
+    public Animal(string kind, T avgAge, string name, T age) : base(kind, avgAge)
     {
         _name = name;
         _age = age;
@@ -31,7 +31,7 @@ public class Animal<T>: AnimalKind
         _name = name;
     }
 
-    public void SetAge(T? age)
+    public void SetAge(T age)
     {
         _age = age;
     }

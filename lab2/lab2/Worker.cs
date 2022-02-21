@@ -2,9 +2,10 @@
 
 namespace Lab2;
 
-public class Worker
+public class Worker : IToString
 {
     public string Name { get; set; }
+    private static float _baseSalary = 10; 
     private float _salary;
     
     public float Salary
@@ -35,8 +36,13 @@ public class Worker
         _salary = salary;
     }
 
-    public string ToString()
+    public float GetBaseSalary()
     {
-        return Name + ";" + _salary + ";";
+        return _baseSalary;
+    }
+
+    public override string ToString()
+    {
+        return Name + ";" + _salary;
     }
 }
