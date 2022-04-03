@@ -1,4 +1,7 @@
-﻿using Microsoft.VisualBasic;
+﻿using System.ComponentModel.Design;
+using System.Diagnostics;
+using System.Runtime.Serialization.Formatters.Binary;
+using Microsoft.VisualBasic;
 
 namespace lab4
 {
@@ -6,12 +9,24 @@ namespace lab4
     {
         static void Main()
         {
+            Menu();
+        }
+
+        static void Menu()
+        {
+            Console.Clear();
             Console.WriteLine("1) Строки\n2) Текстовый файл\n3) Бинарный файл");
             int c = Int32.Parse(Console.ReadLine());
             switch (c)
             {
                 case 1:
                     Strings();
+                    break;
+                case 2:
+                    TxtFile();
+                    break;
+                case 3:
+                    BinFile();
                     break;
             }
         }
@@ -30,6 +45,8 @@ namespace lab4
             {
                 Console.WriteLine($"Полученная пара слов: {newText}");    
             }
+            Console.ReadLine();
+            Menu();
         }
 
         static string StringsDo(string text)
@@ -50,6 +67,56 @@ namespace lab4
                 
             }
             return "-1";
+        }
+
+        static void TxtFile()
+        {
+            Console.Clear();
+            StreamReader file = new StreamReader("temp.txt");
+            
+            List<string> l = TxtFileDo(file);
+            using (StreamWriter res = new StreamWriter("res.txt", false))
+            {
+                foreach (var s in l)
+                {
+                    Console.WriteLine(s);
+                    res.WriteLine(s);
+                }
+            }
+            Console.WriteLine("Task done!");
+            Console.ReadLine();
+            Menu();
+        }
+
+        static List<string> TxtFileDo(StreamReader file)
+        {
+            String s;
+            List<string> list = new List<string>();
+            while ((s = file.ReadLine()) != null)
+            {
+                if (!s.Contains(','))
+                {
+                    list.Add(s);
+                }
+            }
+            return list;
+        }
+
+        static void BinFile()
+        {
+            string desktopPath = "";
+            using StreamReader sr = new StreamReader("Var10.dat");
+            BinaryFormatter bf = new BinaryFormatter();
+
+            TvShow[] shows = (TvShow[]) bf.Deserialize(sr.BaseStream);
+            Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            desktopPath = Path.Combine(desktopPath, "TvShows");
+            Directory.CreateDirectory(desktopPath);
+            for (int i = 0; i < shows.Length; i++)
+            {
+                using StreamWriter file = new StreamWriter(Path.Combine(desktopPath, shows[i].TvChannel + ".txt"), true);
+                file.WriteLine("Название: {0}, Время показа: {1}", shows[i].Title, shows[i].BroadcastTime);
+            }
         }
     }
 }
