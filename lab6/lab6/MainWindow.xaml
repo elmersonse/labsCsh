@@ -15,9 +15,14 @@
             <MenuItem Header="Справочники" Click="MenuItem_OnClick"/>
             <MenuItem Header="Запросы"/>
         </Menu>
-        <Frame Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="2">
+        <Frame Grid.Row="1" Grid.Column="0" Name="MainFrame" Background="Bisque" Visibility="Hidden">
             <Frame.Content>
-                <Page Name="Page1" Grid.Row="1" Grid.Column="0" Visibility="Visible">
+                <Label FontSize="28" FontFamily="Arial Black" Content="Lab6 by Kit" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            </Frame.Content>
+        </Frame>
+        <Frame Name="ViewFrame" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="2" Visibility="Visible">
+            <Frame.Content>
+                <Page Grid.Row="1" Grid.Column="0">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40"></RowDefinition>
@@ -31,9 +36,9 @@
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         
-                        <Button Content="Планета" Grid.Row="0" Grid.Column="0" Margin="5 5 2.5 5"/>
-                        <Button Content="Спутник" Grid.Row="0" Grid.Column="1" Margin="2.5 5 2.5 5" />
-                        <Button Content="Галактика" Grid.Row="0" Grid.Column="2" Margin="2.5 5 5 5" />
+                        <Button Content="Планета" Grid.Row="0" Grid.Column="0" Margin="5 5 2.5 5" Click="Planeta_OnClick"/>
+                        <Button Content="Спутник" Grid.Row="0" Grid.Column="1" Margin="2.5 5 2.5 5" Click="Sputnik_OnClick"/>
+                        <Button Content="Галактика" Grid.Row="0" Grid.Column="2" Margin="2.5 5 5 5" Click="Galaktika_OnClick"/>
                         
                         <DataGrid Name="Grid1" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" />
                         
@@ -50,21 +55,36 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Grid.Column="0" Margin="5 5 2.5 5">
                                     <Label Content="Поле" />
-                                    <ComboBox Name="cb1" SelectionChanged="Cb1_OnSelectionChanged" />
+                                    <ComboBox Name="cb1" SelectionChanged="Cb1_OnSelectionChanged"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" Margin="2.5 5 2.5 5">
                                     <Label Name="l1" Content=""/>
                                     <TextBox Name="tb1"/>
+                                    <CheckBox Margin="0 -18 0 0" Name="chb1" Visibility="Visible"></CheckBox>
                                 </StackPanel>
                                 <StackPanel Grid.Column="2" Margin="2.5 5 5 5">
                                     <Label Name="l2" Content=""/>
                                     <TextBox Name="tb2" />
                                 </StackPanel>
                             </Grid>
-                            
                         </GroupBox>
                     </Grid>
                 </Page>
+            </Frame.Content>
+        </Frame>
+        <Frame Name="AddFrame" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="2" Visibility="Hidden">
+            <Frame.Content>
+                <DataGrid></DataGrid>
+            </Frame.Content>
+        </Frame>
+        <Frame Name="EditFrame" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="2" Visibility="Hidden">
+            <Frame.Content>
+                <DataGrid></DataGrid>
+            </Frame.Content>
+        </Frame>
+        <Frame Name="DeleteFrame" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="2" Visibility="Hidden">
+            <Frame.Content>
+                <DataGrid></DataGrid>
             </Frame.Content>
         </Frame>
     </Grid>
