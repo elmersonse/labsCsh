@@ -1,0 +1,71 @@
+﻿<Window x:Class="lab6.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:lab6"
+        mc:Ignorable="d"
+        Title="Lab 6" Height="350" Width="525">
+    <Grid ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="18"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Top">
+            <MenuItem Header="Справочники" Click="MenuItem_OnClick"/>
+            <MenuItem Header="Запросы"/>
+        </Menu>
+        <Frame Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="2">
+            <Frame.Content>
+                <Page Name="Page1" Grid.Row="1" Grid.Column="0" Visibility="Visible">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition Height="1.5*"></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Button Content="Планета" Grid.Row="0" Grid.Column="0" Margin="5 5 2.5 5"/>
+                        <Button Content="Спутник" Grid.Row="0" Grid.Column="1" Margin="2.5 5 2.5 5" />
+                        <Button Content="Галактика" Grid.Row="0" Grid.Column="2" Margin="2.5 5 5 5" />
+                        
+                        <DataGrid Name="Grid1" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" />
+                        
+                        <Button Content="Добавить" Grid.Row="2" Grid.Column="0" Margin="5 5 2.5 5"/>
+                        <Button Content="Удалить" Grid.Row="2" Grid.Column="1" Margin="2.5 5 2.5 5" />
+                        <Button Content="Изменить" Grid.Row="2" Grid.Column="2" Margin="2.5 5 5 5" />
+                        
+                        <GroupBox Header="Фильтрация" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Margin="5 5 2.5 5">
+                                    <Label Content="Поле" />
+                                    <ComboBox Name="cb1" SelectionChanged="Cb1_OnSelectionChanged" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Margin="2.5 5 2.5 5">
+                                    <Label Name="l1" Content=""/>
+                                    <TextBox Name="tb1"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="2" Margin="2.5 5 5 5">
+                                    <Label Name="l2" Content=""/>
+                                    <TextBox Name="tb2" />
+                                </StackPanel>
+                            </Grid>
+                            
+                        </GroupBox>
+                    </Grid>
+                </Page>
+            </Frame.Content>
+        </Frame>
+    </Grid>
+</Window>
