@@ -20,7 +20,7 @@
                 <Label FontSize="28" FontFamily="Arial Black" Content="Lab6 by Kit" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
             </Frame.Content>
         </Frame>
-        <Frame Name="ViewFrame" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="2" Visibility="Visible">
+        <Frame Name="ViewFrame" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="2" Visibility="Hidden">
             <Frame.Content>
                 <Page Grid.Row="1" Grid.Column="0">
                     <Grid>
@@ -42,7 +42,7 @@
                         
                         <DataGrid Name="Grid1" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" />
                         
-                        <Button Content="Добавить" Grid.Row="2" Grid.Column="0" Margin="5 5 2.5 5"/>
+                        <Button Content="Добавить" Grid.Row="2" Grid.Column="0" Margin="5 5 2.5 5" Click="Add_OnClick"/>
                         <Button Content="Удалить" Grid.Row="2" Grid.Column="1" Margin="2.5 5 2.5 5" />
                         <Button Content="Изменить" Grid.Row="2" Grid.Column="2" Margin="2.5 5 5 5" />
                         
@@ -74,9 +74,28 @@
                 </Page>
             </Frame.Content>
         </Frame>
-        <Frame Name="AddFrame" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="2" Visibility="Hidden">
+        <Frame Name="AddFrame" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="2" Visibility="Visible">
             <Frame.Content>
-                <DataGrid></DataGrid>
+                <Grid>
+                    <StackPanel MinWidth="200" MaxWidth="500" Width="400">
+                        <Label FontSize="12" FontFamily="Arial Black" Content=""></Label>
+                        <TextBox></TextBox>
+                        <Label FontSize="12" FontFamily="Arial Black" Content=""></Label>
+                        <ComboBox></ComboBox>
+                        <TextBox Margin="0 -20 0 0"></TextBox>
+                        <Label FontSize="12" FontFamily="Arial Black" Content=""></Label>
+                        <TextBox></TextBox>
+                        <Label FontSize="12" FontFamily="Arial Black" Content=""></Label>
+                        <TextBox></TextBox>
+                        <Label FontSize="12" FontFamily="Arial Black" Content=""></Label>
+                        <TextBox></TextBox>
+                        <Label FontSize="12" FontFamily="Arial Black" Content=""></Label>
+                        <TextBox></TextBox>
+                        <Label FontSize="12" FontFamily="Arial Black" Content=""></Label>
+                        <TextBox></TextBox>
+                        <Button Margin="0 10 0 0" Width="100" Height="20"></Button>
+                    </StackPanel>
+                </Grid>
             </Frame.Content>
         </Frame>
         <Frame Name="EditFrame" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="2" Visibility="Hidden">

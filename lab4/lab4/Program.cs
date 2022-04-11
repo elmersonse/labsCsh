@@ -1,6 +1,9 @@
 ﻿using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Runtime.Serialization.Formatters.Binary;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualBasic;
 
 namespace lab4

@@ -70,14 +70,21 @@ namespace lab1p1
                     y = i - 3;
                 }
 
-                list.Add(new double[] {x, y});
+                list.Add(new double[]{x, y});
                 
             }
             
             Console.WriteLine($"{'x', -7} | {'y', -7}");
             foreach (double[] mas in list)
             {
-                Console.WriteLine($"{mas[0].ToString("F"), -7} | {mas[1].ToString("F"), -7}");
+                if (mas[0] < -10 || mas[0] > 4)
+                {
+                    Console.WriteLine($"{mas[0].ToString("F"), -7} | не определена");
+                }
+                else
+                {
+                    Console.WriteLine($"{mas[0].ToString("F"), -7} | {mas[1].ToString("F"), -7}");
+                }
             }
         }
     }

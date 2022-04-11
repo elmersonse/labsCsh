@@ -43,7 +43,7 @@ namespace lab1p2
 
         static void vector1()
         {
-            int n, t, s, i;
+            int n, c, d, i;
             while (true)
             {
                 Console.WriteLine("Введите длину вектора:");
@@ -74,24 +74,25 @@ namespace lab1p2
                     break;
                 }
             }
+
             while (true)
             {
-                Console.WriteLine("Введите t:");
-                if (!int.TryParse(Console.ReadLine(), out t))
+                Console.WriteLine("Введите c:");
+                if (!int.TryParse(Console.ReadLine(), out c))
                 {
                     Console.WriteLine("Данные введены неверно");
+                    continue;
                 }
-                else
-                {
-                    break;
-                }
-            }
-            while (true)
-            {
-                Console.WriteLine("Введите s:");
-                if (!int.TryParse(Console.ReadLine(), out s))
+                Console.WriteLine("Введите d:");
+                if (!int.TryParse(Console.ReadLine(), out d))
                 {
                     Console.WriteLine("Данные введены неверно");
+                    continue;
+                }
+
+                if (c > d)
+                {
+                    Console.WriteLine("n должно быть меньше k");
                 }
                 else
                 {
@@ -103,46 +104,39 @@ namespace lab1p2
             {
                 Console.Write(e+" ");
             }
-            int res = task1(v, t, s);
+            int res = task1(v, c, d, n);
             if (res == -1)
             {
-                Console.WriteLine("\nНет подходящих элементов");
+                Console.WriteLine("\nОшибка выполнения. Проверьте данные");
             }
             else
             {
-                Console.WriteLine(String.Format($"\nНомер последнего минимального элемента среди элементов, меньших {t} " +
-                                                $"и лежащих правее первого элемента, равного {s} = {res}"));
+                Console.WriteLine(String.Format($"\nНомер последнего максимального элемента = {res}"));
             }
         }
 
-        static int task1(int[] v, int t, int s)
+        static int task1(int[] v, params int[] p)
         {
-            int eq, i, min, imin;
-            int n = v.Length;
-            for (eq = 0; eq < n; eq++)
+            int even, i, max, imax;
+            for (even = 0; even < p[2]; even++)
             {
-                if (v[eq] == s)
+                if (v[even] % 2 == 0)
                 {
                     break;
                 }
             }
 
-            min = v[eq];
-            imin = eq;
-            for (i = eq+1; i < n; i++)
+            max = int.MinValue;
+            imax = -1;
+            for (i = 0; i < even; i++)
             {
-                if (v[i] < t && v[i] <= min)
+                if (v[i] >= p[0] && v[i] <= p[1] && v[i] >= max)
                 {
-                    min = v[i];
-                    imin = i;
+                    max = v[i];
+                    imax = i;
                 }
             }
-
-            if (imin == eq)
-            {
-                return -1;
-            }
-            return imin;
+            return imax;
         }
 
         static void vector2()
@@ -214,9 +208,9 @@ namespace lab1p2
                 sum = 0;
                 for (int j = 0; j < n; j++)
                 {
-                    if (m[i, j] < 0)
+                    if (m[j, i] % 2 == 1 )
                     {
-                        sum += m[i, j];
+                        sum++;
                     }
                 }
                 res[i] = sum;
@@ -289,27 +283,12 @@ namespace lab1p2
 
         static void task3(ref int[,] m, int n)
         {
-            int[] temp = new int[n];
-            for (int i = 0; i < n-1; i++)
+            int temp;
+            for (int i = 0; i < n; i++)
             {
-                for (int j = i + 1; j < n; j++)
-                {
-                    if (m[i, 0] > m[j, 0])
-                    {
-                        for (int k = 0; k < n; k++)
-                        {
-                            temp[k] = m[i, k];
-                        }
-                        for (int k = 0; k < n; k++)
-                        {
-                            m[i,k] = m[j, k];
-                        }
-                        for (int k = 0; k < n; k++)
-                        {
-                            m[j, k] = temp[k];
-                        }
-                    }
-                }
+                temp = m[0, i];
+                m[0, i] = m[i, n-1];
+                m[i, n-1] = temp;
             }
         }
     }

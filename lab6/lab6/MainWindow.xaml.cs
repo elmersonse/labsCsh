@@ -15,7 +15,7 @@ namespace lab6
     /// </summary>
     public partial class MainWindow
     {
-        private const string ConnectionString = "Server=PASHA\\SQLEXPRESS;Database=Planets;Trusted_Connection=True;";
+        private const string ConnectionString = "Server=ALEXTRAZA\\SQLEXPRESS;Database=Planets;Trusted_Connection=True;";
         private static string _selectedTable;
         private SqlConnection _connection;
         private List<Planet> Planets = new List<Planet>();
@@ -166,7 +166,7 @@ namespace lab6
                 SqlCommand c1 = new SqlCommand();
                 c1.CommandText = "select * from Planet";
                 c1.Connection = _connection;
-                PlanetRead(c1);
+                Planets = PlanetRead(c1);
                 Grid1.ItemsSource = Planets;
             }
         }
@@ -189,19 +189,7 @@ namespace lab6
                 SqlCommand c1 = new SqlCommand();
                 c1.Connection = _connection;
                 c1.CommandText = "select * from Satellite";
-                SqlDataReader r1 = c1.ExecuteReader();
-                if (r1.HasRows)
-                {
-                    while (r1.Read())
-                    {
-                        Satellites.Add(new Satellite(r1.GetInt32(0), 
-                            r1.GetInt32(1), 
-                            r1.GetString(2), 
-                            r1.GetInt32(3), 
-                            r1.GetInt32(4)));
-                    }
-                }
-
+                Satellites = SatelliteRead(c1);
                 Grid1.ItemsSource = Satellites;
             }
         }
@@ -221,16 +209,7 @@ namespace lab6
                 SqlCommand c1 = new SqlCommand();
                 c1.Connection = _connection;
                 c1.CommandText = "select * from Galaxy";
-                SqlDataReader r1 = c1.ExecuteReader();
-                if (r1.HasRows)
-                {
-                    while (r1.Read())
-                    {
-                        Galaxies.Add(new Galaxy(r1.GetInt32(0),
-                            r1.GetString(1)));
-                    }
-                }
-
+                Galaxies = GalaxyRead(c1);
                 Grid1.ItemsSource = Galaxies;
             }
         }
@@ -249,61 +228,91 @@ namespace lab6
                         switch (cb1.SelectedIndex)
                         {
                             case 0:
-                                c1.CommandText = $"select * from Planet where Name like @name";
+                                c1.CommandText = "select * from Planet where Name like @name";
                                 c1.Parameters.Add("@name", SqlDbType.VarChar).Value = tb1.Text;
-                                c1.Connection = _connection;
-                                PlanetRead(c1);
-                                Grid1.ItemsSource = Planets;
                                 break;
                             case 1:
-                        
+                                c1.CommandText = "select * from Planet where Radius between @p1 and @p2";
+                                c1.Parameters.Add("@p1", SqlDbType.Int).Value = int.Parse(tb1.Text);
+                                c1.Parameters.Add("@p2", SqlDbType.Int).Value = int.Parse(tb2.Text);
                                 break;
                             case 2:
-                        
+                                c1.CommandText = "select * from Planet where Core_temperature between @p1 and @p2";
+                                c1.Parameters.Add("@p1", SqlDbType.Int).Value = int.Parse(tb1.Text);
+                                c1.Parameters.Add("@p2", SqlDbType.Int).Value = int.Parse(tb2.Text);
                                 break;
                             case 3:
-                        
+                                c1.CommandText = "select * from Planet where Atmosphere = @p";
+                                if (chb1.IsChecked == true)
+                                {
+                                    c1.Parameters.Add("@p", SqlDbType.Int).Value = 1;
+                                }
+                                else
+                                {
+                                    c1.Parameters.Add("@p", SqlDbType.Int).Value = 0;
+                                }
                                 break;
                             case 4:
-                        
+                                c1.CommandText = "select * from Planet where Life = @p";
+                                if (chb1.IsChecked == true)
+                                {
+                                    c1.Parameters.Add("@p", SqlDbType.Int).Value = 1;
+                                }
+                                else
+                                {
+                                    c1.Parameters.Add("@p", SqlDbType.Int).Value = 0;
+                                }
                                 break;
                         }
+                        Planets = PlanetRead(c1);
+                        Grid1.ItemsSource = Planets;
                         break;
                     case "Спутник":
                         switch (cb1.SelectedIndex)
                         {
                             case 0:
-                        
+                                c1.CommandText = "select * from Satellite where Name like @name";
+                                c1.Parameters.Add("@name", SqlDbType.VarChar).Value = tb1.Text;
                                 break;
                             case 1:
-                        
+                                c1.CommandText = "select * from Satellite where Radius between @p1 and @p2";
+                                c1.Parameters.Add("@p1", SqlDbType.Int).Value = int.Parse(tb1.Text);
+                                c1.Parameters.Add("@p2", SqlDbType.Int).Value = int.Parse(tb2.Text);
                                 break;
                             case 2:
-                        
+                                c1.CommandText = "select * from Satellite where Distance between @p1 and @p2";
+                                c1.Parameters.Add("@p1", SqlDbType.Int).Value = int.Parse(tb1.Text);
+                                c1.Parameters.Add("@p2", SqlDbType.Int).Value = int.Parse(tb2.Text);
                                 break;
                         }
+                        Satellites = SatelliteRead(c1);
+                        Grid1.ItemsSource = Satellites;
                         break;
                     case "Галактика":
                         switch (cb1.SelectedIndex)
                         {
                             case 0:
-                        
+                                c1.CommandText = "select * from Galaxy where Name LIKE @name";
+                                c1.Parameters.Add("@name", SqlDbType.VarChar).Value = tb1.Text;
                                 break;
                         }
+                        Galaxies = GalaxyRead(c1);
+                        Grid1.ItemsSource = Galaxies;
                         break;
                 }
             }
             
         }
 
-        private void PlanetRead(SqlCommand c1)
+        private List<Planet> PlanetRead(SqlCommand c1)
         {
+            List<Planet> temp = new List<Planet>();
             SqlDataReader r1 = c1.ExecuteReader();
             if (r1.HasRows)
             {
                 while (r1.Read())
                 {
-                    Planets.Add(new Planet(r1.GetInt32(0), 
+                    temp.Add(new Planet(r1.GetInt32(0), 
                         r1.GetString(1), 
                         r1.GetInt32(2), 
                         r1.GetInt32(3), 
@@ -312,6 +321,48 @@ namespace lab6
                         r1.GetInt32(6)));
                 }
             }
+
+            return temp;
+        }
+
+        private List<Galaxy> GalaxyRead(SqlCommand c1)
+        {
+            List<Galaxy> temp = new List<Galaxy>();
+            SqlDataReader r1 = c1.ExecuteReader();
+            if (r1.HasRows)
+            {
+                while (r1.Read())
+                {
+                    temp.Add(new Galaxy(r1.GetInt32(0),
+                        r1.GetString(1)));
+                }
+            }
+
+            return temp;
+        }
+
+        private List<Satellite> SatelliteRead(SqlCommand c1)
+        {
+            List<Satellite> temp = new List<Satellite>();
+            SqlDataReader r1 = c1.ExecuteReader();
+            if (r1.HasRows)
+            {
+                while (r1.Read())
+                {
+                    temp.Add(new Satellite(r1.GetInt32(0), 
+                        r1.GetInt32(1), 
+                        r1.GetString(2), 
+                        r1.GetInt32(3), 
+                        r1.GetInt32(4)));
+                }
+            }
+
+            return temp;
+        }
+
+        private void Add_OnClick(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
