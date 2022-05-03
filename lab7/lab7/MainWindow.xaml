@@ -1,0 +1,129 @@
+﻿<Window x:Class="lab7.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Lab 6" Height="400" Width="525">
+    <Grid ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="18"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Top">
+            <MenuItem Header="Справочники" Click="MenuItem_OnClick"/>
+            <MenuItem Header="Запросы" Click="Query_OnClick"/>
+        </Menu>
+        <Frame Grid.Row="1" Grid.Column="0" Name="MainFrame" Background="Bisque" Visibility="Hidden">
+            <Frame.Content>
+                <Label FontSize="28" FontFamily="Arial Black" Content="lab7 by Kit" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            </Frame.Content>
+        </Frame>
+        <Frame Name="ViewFrame" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="2" Visibility="Hidden">
+            <Frame.Content>
+                <Page Grid.Row="1" Grid.Column="0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition Height="1.5*"></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Content="Планета" Grid.Row="0" Grid.Column="0" Margin="5 5 2.5 5" Click="Planeta_OnClick"/>
+                        <Button Content="Спутник" Grid.Row="0" Grid.Column="1" Margin="2.5 5 2.5 5" Click="Sputnik_OnClick"/>
+                        <Button Content="Галактика" Grid.Row="0" Grid.Column="2" Margin="2.5 5 5 5" Click="Galaktika_OnClick"/>
+
+                        <DataGrid Name="Grid1" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" />
+
+                        <Button Content="Добавить" Grid.Row="2" Grid.Column="0" Margin="5 5 2.5 5" Click="Add_OnClick"/>
+                        <Button Content="Удалить" Grid.Row="2" Grid.Column="1" Margin="2.5 5 2.5 5" Click="Delete_OnClick"/>
+                        <Button Content="Изменить" Grid.Row="2" Grid.Column="2" Margin="2.5 5 5 5" Click="Edit_OnClick"/>
+
+                        <GroupBox Header="Фильтрация" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Margin="5 5 2.5 5">
+                                    <Label Content="Поле" />
+                                    <ComboBox Name="cb1" SelectionChanged="Cb1_OnSelectionChanged"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Margin="2.5 5 2.5 5">
+                                    <Label Name="l1" Content=""/>
+                                    <TextBox Name="tb1"/>
+                                    <CheckBox Margin="0 -18 0 0" Name="chb1" Visibility="Visible"></CheckBox>
+                                </StackPanel>
+                                <StackPanel Grid.Column="2" Margin="2.5 5 2.5 5">
+                                    <Label Name="l2" Content=""/>
+                                    <TextBox Name="tb2" />
+                                </StackPanel>
+                                <Button Grid.Column="3" Margin="2.5 5 5 5" Content="Execute" Click="Execute_OnClick"></Button>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                </Page>
+            </Frame.Content>
+        </Frame>
+        <Frame Name="AddFrame" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="2" Visibility="Hidden">
+            <Frame.Content>
+                <Grid>
+                    <StackPanel MinWidth="200" MaxWidth="500" Width="400">
+                        <Label Name="addl2" FontSize="12" FontFamily="Arial Black" Content=""></Label>
+                        <ComboBox Name="addcb1"></ComboBox>
+                        <TextBox Name="addtb2" Margin="0 -20 0 0"></TextBox>
+                        <Label Name="addl3" FontSize="12" FontFamily="Arial Black" Content=""></Label>
+                        <TextBox Name="addtb3"></TextBox>
+                        <Label Name="addl4" FontSize="12" FontFamily="Arial Black" Content=""></Label>
+                        <TextBox Name="addtb4"></TextBox>
+                        <Label Name="addl5" FontSize="12" FontFamily="Arial Black" Content=""></Label>
+                        <TextBox Name="addtb5"></TextBox>
+                        <Label Name="addl6" FontSize="12" FontFamily="Arial Black" Content=""></Label>
+                        <CheckBox Name="addchb1" Margin="0 0 0 0"></CheckBox>
+                        <Label Name="addl7" FontSize="12" FontFamily="Arial Black" Content=""></Label>
+                        <CheckBox Name="addchb2" Margin="0 0 0 0"></CheckBox>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Content="Add" Margin="0 10 5 0" Width="100" Height="20" Click="AddConfirm"></Button>
+                            <Button Content="Back" Margin="5 10 0 0" Width="100" Height="20" Click="AddBack"></Button>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Frame.Content>
+        </Frame>
+        <Frame Name="QueryFrame" Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="2" Visibility="Hidden">
+            <Frame.Content>
+                <Page>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="0.6*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <DataGrid Name="dg1" Grid.Row="0" Margin="10"></DataGrid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <ComboBox Name="cb2" Height="20" Margin="10" SelectionChanged="Cb2_OnSelectionChanged"></ComboBox>
+                                <Label Name="ql1" Margin="10 0">Параметр</Label>
+                                <TextBox Name="qtb1" Margin="10 0"></TextBox>
+                            </StackPanel>
+                            <TextBlock TextWrapping="Wrap" Name="ql2" Grid.Column="1" Margin="10"></TextBlock>
+                            <Button Grid.Column="2" Margin="10" Click="ExecuteQuery_OnClick">Execute</Button>
+                        </Grid>
+                    </Grid>
+                </Page>
+            </Frame.Content>
+        </Frame>
+    </Grid>
+</Window>
